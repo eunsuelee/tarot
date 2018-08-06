@@ -1,1 +1,5 @@
 /build
+/.externalNativeBuild
+/src/androidTest/java/com/eunsue/luck/tarot
+/src/test/java/com/eunsue/luck/tarot
+*.iml
