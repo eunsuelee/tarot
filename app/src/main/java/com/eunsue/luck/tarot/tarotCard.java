@@ -3,17 +3,20 @@ package com.eunsue.luck.tarot;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class tarotCard {
-    private ArrayList<Integer> card = new ArrayList<>();
+public class tarotCard extends cardBase{
     private ArrayList<Integer> randomCard = new ArrayList<>();
 
-    public int getCard(int index){
-        return this.card.get(index);
+    public tarotCard(){
+        super();
+        setRandom();
     }
 
-    public int getRandomCard(int index){
-        setRandom();
-        int i = getCard(randomCard.get(index));
+    public int getRandomCardIndex(int index){
+        return randomCard.get(index);
+    }
+
+    public String getRandomCard(int index){
+        int i = getRandomCardIndex(index);
         return this.getCard(i);
     }
 
@@ -21,11 +24,11 @@ public class tarotCard {
         Random random = new Random();
         ArrayList<Integer> buf = new ArrayList<>();
 
-        for(int i=0; i<50; i++){
-            int index = random.nextInt(50)+1;
+        for(int i=0; i<22; i++){
+            int index = random.nextInt(22);
 
             if(buf.contains(index)){
-               i--;
+                i--;
             }
             else{
                 buf.add(index);
@@ -34,7 +37,4 @@ public class tarotCard {
 
         randomCard = buf;
     }
-
-    //card에 default 값 생성
-    //get random card 좀 수정해야할듯
 }
