@@ -23,8 +23,11 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         EditText editText = (EditText)findViewById(R.id.editText);
         editText.setOnEditorActionListener(this);
 
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
-        imageView.setVisibility(View.INVISIBLE);
+        ImageView cardView = (ImageView)findViewById(R.id.imageView);
+        cardView.setVisibility(View.INVISIBLE);
+
+        TextView textView = (TextView)findViewById(R.id.textView3);
+        textView.setVisibility(View.INVISIBLE);
 
     }
 
@@ -41,22 +44,27 @@ public class MainActivity extends AppCompatActivity implements TextView.OnEditor
         tarotCard tarot = new tarotCard();
 
         int imgIndex = tarot.getRandomCardIndex(index);
-        String imagePath = "tarot" + String.valueOf(imgIndex) + ".png";
-        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+        String tarotPath = "tarot" + String.valueOf(imgIndex) + ".png";
+        ImageView tarotView = (ImageView)findViewById(R.id.imageView);
 
-        try{
-            InputStream is = getAssets().open(imagePath);
-            Drawable drawable = Drawable.createFromStream(is, null);
-            imageView.setImageDrawable(drawable);
-            imageView.setVisibility(View.VISIBLE);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        this.setImage(tarotView, tarotPath);
+        tarotView.setVisibility(View.VISIBLE);
 
         String result = tarot.getRandomCard(index);
 
         TextView resultView = (TextView)findViewById(R.id.textView3);
         resultView.setText(result);
+        resultView.setVisibility(View.VISIBLE);
 
+    }
+
+    public void setImage(ImageView imageView, String path){
+        try{
+            InputStream is = getAssets().open(path);
+            Drawable drawable = Drawable.createFromStream(is, null);
+            imageView.setImageDrawable(drawable);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
