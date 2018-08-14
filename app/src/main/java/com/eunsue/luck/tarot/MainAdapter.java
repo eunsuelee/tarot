@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ToolbarWidgetWrapper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +22,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
 
     private ArrayList<String> dataSet;
     private Context mainCtx;
+    private RecyclerView recycleCtx;
+    private EditText editText;
 
-    public MainAdapter(Context ctx, ArrayList<String> dataSet){
-        mainCtx = ctx;
+    public MainAdapter(Context mainCtx, RecyclerView recycleCtx, EditText editText, ArrayList<String> dataSet){
+        this.mainCtx = mainCtx;
+        this.recycleCtx = recycleCtx;
+        this.editText = editText;
         this.dataSet = dataSet;
     }
 
@@ -35,13 +42,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MainAdapter.ViewHolder holder, final int position) {
         holder.mTitle.setText(dataSet.get(position));
         holder.tarot_back.setImageDrawable(getImage("back.jpg"));
         holder.tarot_back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                
+                editText.setText(String.valueOf(position));
+                editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                recycleCtx.setVisibility(View.INVISIBLE);
             }
         });
     }
